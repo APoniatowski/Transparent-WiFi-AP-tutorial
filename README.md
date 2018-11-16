@@ -6,7 +6,7 @@ Here is a tutorial to create a transparent/bridged AP with raspbian/debian/ubunt
         sudo apt-get update  
         sudo apt-get upgrade  
 
-*Install hostapd and bridge utilities:
+*Install hostapd and bridge utilities and we have to stop hostapd after it is installed:
 
         sudo apt-get install hostapd bridge-utils  
         sudo systemctl stop hostapd  
