@@ -3,21 +3,21 @@ Here is a tutorial to create a transparent/bridged AP with raspbian/debian/ubunt
 
 *First we update everything:
 
-`sudo apt-get update
-sudo apt-get upgrade`
+sudo apt-get update
+sudo apt-get upgrade
 
 *Install hostapd and bridge utilities:
 
-`sudo apt-get install hostapd bridge-utils
-sudo systemctl stop hostapd`
+sudo apt-get install hostapd bridge-utils
+sudo systemctl stop hostapd
 
 *Create bridge br0:
 
-`sudo brctl addbr br0`
+sudo brctl addbr br0
 
 *Create a file /etc/hostapd/hostapd.conf 
 
-`interface=wlan0
+interface=wlan0
 bridge=br0
 #driver=nl80211
 ssid=ADD-YOUR-SSID-HERE
@@ -31,11 +31,11 @@ wpa=2
 wpa_passphrase=CreateYourPasswordHere123!!
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
-rsn_pairwise=CCMP`
+rsn_pairwise=CCMP
 
           **or if you're using a wireless n NIC (I have an ath9 USB NIC)**
           
-`interface=wlan0
+interface=wlan0
 driver=nl80211
 bridge=br0
 ssid=ADD-YOUR-SSID-HERE
@@ -50,25 +50,25 @@ wpa=2
 wpa_passphrase=CreateYourPasswordHere123!!
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
-rsn_pairwise=CCMP`
+rsn_pairwise=CCMP
 
 *Edit /etc/default/hostapd and change this (be sure to uncomment it too): 
 
-`DAEMON_CONF="/etc/hostapd/hostapd.conf"`
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
 
 *Add eth0 to br0:
 
-`sudo brctl addif br0 eth0`
+sudo brctl addif br0 eth0
 
 *Edit /etc/network/interfaces and add this:
 
-`auto br0
+auto br0
 iface br0 inet dhcp
-bridge_ports eth0 wlan0`
+bridge_ports eth0 wlan0
 
 *Edit /etc/dhcpcd.conf and add the below at the top of the file (above the other interfaces):
 
-`denyinterfaces eth0 wlan0`
+denyinterfaces eth0 wlan0
 
 *And finally reboot... you now have a bridged/transparent wireless AP.
 
