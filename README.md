@@ -11,11 +11,11 @@ Here is a tutorial to create a transparent/bridged AP with raspbian/debian/ubunt
         sudo apt-get install hostapd bridge-utils  
         sudo systemctl stop hostapd  
 
-*Create bridge br0:
+*Create bridge `br0`:
 
         sudo brctl addbr br0  
 
-*Create a file /etc/hostapd/hostapd.conf 
+*Create a file `/etc/hostapd/hostapd.conf` 
 
         interface=wlan0  
         bridge=br0  
@@ -52,21 +52,21 @@ Here is a tutorial to create a transparent/bridged AP with raspbian/debian/ubunt
         wpa_pairwise=TKIP  
         rsn_pairwise=CCMP  
 
-*Edit /etc/default/hostapd and change this (be sure to uncomment it too): 
+*Edit `/etc/default/hostapd` and change this (be sure to uncomment it too): 
 
         DAEMON_CONF="/etc/hostapd/hostapd.conf"  
 
-*Add eth0 to br0:
+*Add `eth0` to `br0`:
 
         sudo brctl addif br0 eth0  
 
-*Edit /etc/network/interfaces and add this:
+*Edit `/etc/network/interfaces` and add this:
 
         auto br0  
         iface br0 inet dhcp  
         bridge_ports eth0 wlan0  
 
-*Edit /etc/dhcpcd.conf and add the below at the top of the file (above the other interfaces):
+*Edit `/etc/dhcpcd.conf` and add this at the top of the file (above the other interfaces):
 
         denyinterfaces eth0 wlan0  
 
